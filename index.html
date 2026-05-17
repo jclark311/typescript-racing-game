@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Typescript Racing</title>
+        <style>
+            body          { font-family: Arial, Helvetica, sans-serif; }
+            #stats        { border: 2px solid black; }
+            #controls     { width: 28em; float: left; padding: 1em; font-size: 0.7em; }
+            #controls th  { text-align: right; vertical-align: middle; }
+            #instructions { clear: left; float: left; width: 17em; padding: 1em; border: 1px solid black; box-shadow: 0 0 5px black; }
+            #racer        { position: relative; z-index: 0; width: 640px; height: 480px; margin-left: 20em; border: 2px solid black; }
+            #canvas       { position: absolute; z-index: 0; width: 640px; height: 480px; z-index: 0; background-color: #72D7EE; }
+            #mute         { background-position:   0px 0px; width: 32px; height: 32px; background: url('./../images/mute.png'); display: inline-block; cursor: pointer; position: absolute; margin-left: 20em; }
+            #mute.on      { background-position: -32px 0px; }
+
+            /**************************************************/
+            /* rudimentary heads up display (only used in v4) */
+            /**************************************************/
+
+            #hud                   { position: absolute; z-index: 1; width: 640px; padding: 5px 0; font-family: Verdana, Geneva, sans-serif; font-size: 0.8em; background-color: rgba(255,0,0,0.4); color: black; border-bottom: 2px solid black; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+            #hud .hud              { background-color: rgba(255,255,255,0.6); padding: 5px; border: 1px solid black; margin: 0 5px; transition-property: background-color; transition-duration: 2s; -webkit-transition-property: background-color; -webkit-transition-duration: 2s; }
+            #hud #speed            { float: right; }
+            #hud #current_lap_time { float: left;  }
+            #hud #last_lap_time    { float: left; display: none;  }
+            #hud #fast_lap_time    { display: block; width: 12em;  margin: 0 auto; text-align: center; transition-property: background-color; transition-duration: 2s; -webkit-transition-property: background-color; -webkit-transition-duration: 2s; }
+            #hud .value            { color: black; font-weight: bold; }
+            #hud .fastest          { background-color: rgba(255,215,0,0.5); }
+        </style>
+    </head>
+    <body>
+        <table id="controls">
+            <tr>
+                <td colspan="2">
+                    <a href='v1.straight.html'>straight</a> |
+                    <a href='v2.curves.html'>curves</a>     |
+                    <a href='v3.hills.html'>hills</a>       |
+                    <a href='v4.final.html'>final</a>
+                </td>
+            </tr>
+            <tr><td id="fps" colspan="2" align="right"></td></tr>
+            <tr>
+                <th><label for="resolution">Resolution :</label></th>
+                <td>
+                    <select id="resolution" style="width:100%">
+                        <option value='fine'>Fine (1280x960)</option>
+                        <option selected value='high'>High (1024x768)</option>
+                        <option value='medium'>Medium (640x480)</option>
+                        <option value='low'>Low (480x360)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="lanes">Lanes :</label></th>
+                <td>
+                    <select id="lanes">
+                        <option>1</option>
+                        <option>2</option>
+                        <option selected>3</option>
+                        <option>4</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="roadWidth">Road Width (<span id="currentRoadWidth"></span>) :</label></th>
+                <td><input id="roadWidth" type='range' min='500' max='3000' title="integer (500-3000)"></td>
+            </tr>
+            <tr>
+                <th><label for="cameraHeight">CameraHeight (<span id="currentCameraHeight"></span>) :</label></th>
+                <td><input id="cameraHeight" type='range' min='500' max='5000' title="integer (500-5000)"></td>
+            </tr>
+            <tr>
+            <th><label for="drawDistance">Draw Distance (<span id="currentDrawDistance"></span>) :</label></th>
+            <td><input id="drawDistance" type='range' min='100' max='500' title="integer (100-500)"></td>
+            </tr>
+            <tr>
+            <th><label for="fieldOfView">Field of View (<span id="currentFieldOfView"></span>) :</label></th>
+            <td><input id="fieldOfView" type='range' min='80' max='140' title="integer (80-140)"></td>
+            </tr>
+            <tr>
+                <th><label for="fogDensity">Fog Density (<span id="currentFogDensity"></span>) :</label></th>
+                <td><input id="fogDensity" type='range' min='0' max='50' title="integer (0-50)"></td>
+            </tr>
+        </table>
+
+        <div id='instructions'>
+            <p>Use the <b>arrow keys</b> to drive the car.</p>
+        </div>
+
+        <div id="racer">
+            <canvas id="canvas">
+            Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
+            </canvas>
+            Loading...
+        </div>
+
+        <audio id='music'>
+            <source src="public/music/racer.ogg" type="audio/ogg">
+            <source src="public/music/racer.mp3" type="audio/mpeg">
+        </audio>
+        <span id="mute"></span>
+    </body>
+</html>
